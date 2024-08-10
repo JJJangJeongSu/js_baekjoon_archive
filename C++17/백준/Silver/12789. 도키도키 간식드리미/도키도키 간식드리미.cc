@@ -9,10 +9,8 @@ int main() {
   ios::sync_with_stdio(false);
   cin.tie(NULL);
 
-  string result;
   queue<int> q;
   stack<int> s;
-  map<int, bool> m;
 
   int temp;
   int n;
@@ -24,27 +22,22 @@ int main() {
     q.push(temp);
   }
 
-  result = "Nice";
-
-  while (cur <= n) {
+  while (!s.empty() || !q.empty()) {
     if (!q.empty() && q.front() == cur) {
       q.pop();
       cur++;
     } else if (!s.empty() && s.top() == cur) {
       s.pop();
       cur++;
-    } else if (m[cur]) {
-      result = "Sad";
-      break;
-    } else {
-      temp = q.front();
+    } else if (!q.empty()) {
+      s.push(q.front());
       q.pop();
-      s.push(temp);
-      m[temp] = true;
+    } else {
+      break;
     }
   }
 
-  cout << result << '\n';
+  cout << (cur == n + 1 ? "Nice" : "Sad") << '\n';
 
   return 0;
 }
