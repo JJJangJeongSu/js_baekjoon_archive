@@ -5,30 +5,24 @@ input = sys.stdin.readline
 n = int(input())
 m = int(input())
 
-ingred_list = []
-
 ingred_list = list(map(int, input().split()))
 
+# 정렬하기 
 ingred_list.sort()
-total = 0
 
-start_idx = 0
-end_idx = n-1
+i = 0
+j = n-1
 
 count = 0
+# 현재보다 m이 크면, 밑의 숫자를 키우기 
+while i<j:
+    total = ingred_list[i] + ingred_list[j]
 
-# print(ingred_list)
-
-while start_idx != end_idx:
-    total = ingred_list[start_idx] + ingred_list[end_idx]
-    if total <= m:
-        start_idx += 1
-        
-        if total == m:
-            count += 1
-        
+    if total < m:
+        i+=1
     else:
-        end_idx -=1
-    
-    
+        if total == m:
+            count +=1
+        j-=1
+
 print(count)
